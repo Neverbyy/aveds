@@ -1,5 +1,17 @@
-# Vue 3 + TypeScript + Vite
+## AVEDS — Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### Демо
+- **GitHub Pages**: [`https://neverbyy.github.io/aveds/`](https://neverbyy.github.io/aveds/)
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Технологии
+- **Vue 3** + **TypeScript**
+- **Vite**
+- **Vue Router**
+
+## Структура проекта (основное)
+- `src/pages` — страницы (`HomePage.vue`, `ContactsPage.vue`, `AccountPage.vue`)
+- `src/components` — компоненты, модальное окно с формой авторизации (`AuthModal.vue`)
+- `src/composables/useAuth.ts` — логика авторизации
+- `public/users.json` — мок‑данные пользователей
+- `src/router/index.ts` — маршрутизация
+
