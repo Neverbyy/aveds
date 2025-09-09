@@ -1,4 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import AuthModal from './components/AuthModal.vue'
+
+const isAuthModalOpen = ref<boolean>(false)
+
+const handleOpenAuthModal = () => { 
+  isAuthModalOpen.value = true 
+
+}
+
+const handleCloseAuthModal = () => { 
+  isAuthModalOpen.value = false 
+}
+
+const handleAuthSubmit = (_payload: { login: string; password: string }) => {
+  isAuthModalOpen.value = false
+}
 </script>
 
 <template>
@@ -8,7 +25,7 @@
         <a class="logo" href="#" aria-label="На главную" tabindex="0">logo</a>
         <nav class="actions" aria-label="Основная навигация">
           <a class="btn btn--contacts" href="#contacts" aria-label="Контакты" tabindex="0">Контакты</a>
-          <a class="btn btn--outline" href="#login" aria-label="Войти" tabindex="0">Войти</a>
+          <button class="btn btn--outline" type="button" aria-label="Открыть форму входа" @click="handleOpenAuthModal" @keydown.enter.prevent="handleOpenAuthModal">Войти</button>
         </nav>
       </div>
     </header>
@@ -18,7 +35,7 @@
         <div class="container">
           <h1 id="hero-title" class="hero__title">Место для получения медицинской помощи</h1>
           <div class="hero__actions">
-            <a class="btn btn--primary btn--primary-large" href="#login" aria-label="Войти" tabindex="0">Войти</a>
+            <button class="btn btn--primary btn--primary-large" type="button" aria-label="Открыть форму входа" @click="handleOpenAuthModal" @keydown.enter.prevent="handleOpenAuthModal">Войти</button>
             <a class="btn btn--contacts btn--contacts-large" href="#contacts" aria-label="Контакты" tabindex="0">Контакты</a>
           </div>
 
@@ -50,9 +67,10 @@
       </section>
 
     </main>
+
+    <AuthModal :open="isAuthModalOpen" @close="handleCloseAuthModal" @submit="handleAuthSubmit" />
   </div>
 </template>
 
 <style scoped>
-/* Локальные донастройки для конкретной страницы при необходимости */
 </style>
