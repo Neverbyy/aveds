@@ -18,15 +18,15 @@
 
 Данные для входа в личный кабинет:
 
-##Админ
+## Админ
 - login: admin
 - password: admin1234
 
-##Иван
+## Иван
 - login: Ivan
 - password: Ivan12345
 
-##Сергей
+## Сергей
 - login: Sergey
 - password: Sergey1234
 
