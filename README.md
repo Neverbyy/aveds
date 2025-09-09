@@ -1,4 +1,4 @@
-## AVEDS — Vue 3 + TypeScript + Vite
+## AVEDS
 
 ### Демо
 - **GitHub Pages**: [`https://neverbyy.github.io/aveds/`](https://neverbyy.github.io/aveds/)
