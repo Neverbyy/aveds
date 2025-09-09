@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as c,a as t}from"./index-CdKDx6gz.js";const o={},r={class:"container","aria-label":"Контакты"};function n(_,e){return c(),a("section",r,[...e[0]||(e[0]=[t("h1",{class:"hero__title"},"Контакты",-1),t("p",{class:"card__text"},"Здесь будут контактные данные.",-1)])])}const i=s(o,[["render",n]]);export{i as default};
