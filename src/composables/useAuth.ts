@@ -28,7 +28,7 @@ export const useAuth = () => {
 
   const login = async (payload: { login: string; password: string }): Promise<boolean> => {
     try {
-      const res = await fetch('/users.json')
+      const res = await fetch(`${import.meta.env.BASE_URL}users.json`)
 
       const users = (await res.json()) as Array<{ 
         login: string; 
