@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick, computed, watch } from 'vue'
 
 type Props = {
   open: boolean
+  errorMessage?: string
 }
 
 const props = defineProps<Props>()
@@ -39,7 +40,17 @@ const isValid = computed<boolean>(() =>
 form.value.login.trim() !== '' && 
 form.value.password.length >= 8)
 
-const handleClose = () => emit('close')
+const resetForm = () => {
+  form.value.login = ''
+  form.value.password = ''
+  touched.value.login = false
+  touched.value.password = false
+}
+
+const handleClose = () => {
+  resetForm()
+  emit('close')
+}
 
 const handleKeydown = (event: KeyboardEvent) => {
   if (!props.open) return
@@ -56,6 +67,16 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown)
+})
+
+watch(() => props.open, async (isOpen, wasOpen) => {
+  if (!isOpen && wasOpen) {
+    resetForm()
+  }
+  if (isOpen) {
+    await nextTick()
+    loginRef.value?.focus()
+  }
 })
 
 const handleSubmit = (event: Event) => {
@@ -87,6 +108,7 @@ const handleSubmit = (event: Event) => {
                  v-model="form.password" @blur="touched.password = true" :aria-invalid="!!errors.password" />
           <span v-if="errors.password" class="field__error">{{ errors.password }}</span>
         </label>
+        <p v-if="props.errorMessage" class="form__error" role="alert" aria-live="polite">{{ props.errorMessage }}</p>
         <div class="auth-form__actions">
           <button type="submit" class="btn btn--primary" :disabled="!isValid">Войти</button>
           <button type="button" class="btn btn--outline" @click="handleClose">Отмена</button>
@@ -99,6 +121,7 @@ const handleSubmit = (event: Event) => {
 
 <style scoped>
 .field__error { color: #d93025; font-size: 12px; }
+.form__error { color: #d93025; font-size: 13px; margin-top: 6px; }
 .modal {
   position: fixed;
   inset: 0;
