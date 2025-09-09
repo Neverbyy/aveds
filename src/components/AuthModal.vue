@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
 
 type Props = {
   open: boolean
@@ -9,7 +9,35 @@ const props = defineProps<Props>()
 const emit = defineEmits<{ (e: 'close'): void; (e: 'submit', payload: { login: string; password: string }): void }>()
 
 const loginRef = ref<HTMLInputElement | null>(null)
-const formRef = ref<HTMLFormElement | null>(null)
+const form = ref<{ 
+    login: string; 
+    password: string 
+}>({ login: '', password: '' })
+
+const touched = ref<{ 
+    login: boolean; 
+    password: boolean
+}> ({ login: false, password: false })
+
+
+const errors = computed<Record<string, string>>(() => 
+{
+  const out: Record<string, string> = {}
+  if (touched.value.login && !form.value.login.trim()) out.login = 'Укажите логин'
+
+  if (touched.value.password) {
+
+    if (!form.value.password) out.password = 'Укажите пароль'
+    else if (form.value.password.length < 8) out.password = 'Минимум 8 символов'
+  }
+  return out
+})
+
+const isValid = computed<boolean>(() => 
+!errors.value.login && 
+!errors.value.password && 
+form.value.login.trim() !== '' && 
+form.value.password.length >= 8)
 
 const handleClose = () => emit('close')
 
@@ -32,12 +60,10 @@ onBeforeUnmount(() => {
 
 const handleSubmit = (event: Event) => {
   event.preventDefault()
-  const form = formRef.value
-  if (!form) return
-  const formData = new FormData(form)
-  const login = String(formData.get('login') ?? '')
-  const password = String(formData.get('password') ?? '')
-  emit('submit', { login, password })
+  touched.value.login = true
+  touched.value.password = true
+  if (!isValid.value) return
+  emit('submit', { login: form.value.login.trim(), password: form.value.password })
 }
 </script>
 
@@ -48,17 +74,21 @@ const handleSubmit = (event: Event) => {
         <h2 id="auth-title" class="modal__title">Вход</h2>
         <button class="modal__close" type="button" aria-label="Закрыть" @click="handleClose">×</button>
       </header>
-      <form ref="formRef" class="auth-form" @submit="handleSubmit" aria-label="Форма авторизации">
+      <form class="auth-form" @submit="handleSubmit" aria-label="Форма авторизации">
         <label class="field">
           <span class="field__label">Логин</span>
-          <input ref="loginRef" class="field__input" type="text" name="login" autocomplete="username" required />
+          <input ref="loginRef" class="field__input" type="text" name="login" autocomplete="username" 
+                 v-model.trim="form.login" @blur="touched.login = true" :aria-invalid="!!errors.login" />
+          <span v-if="errors.login" class="field__error">{{ errors.login }}</span>
         </label>
         <label class="field">
           <span class="field__label">Пароль</span>
-          <input class="field__input" type="password" name="password" autocomplete="current-password" required />
+          <input class="field__input" type="password" name="password" autocomplete="current-password" 
+                 v-model="form.password" @blur="touched.password = true" :aria-invalid="!!errors.password" />
+          <span v-if="errors.password" class="field__error">{{ errors.password }}</span>
         </label>
         <div class="auth-form__actions">
-          <button type="submit" class="btn btn--primary">Войти</button>
+          <button type="submit" class="btn btn--primary" :disabled="!isValid">Войти</button>
           <button type="button" class="btn btn--outline" @click="handleClose">Отмена</button>
         </div>
       </form>
@@ -68,6 +98,7 @@ const handleSubmit = (event: Event) => {
 </template>
 
 <style scoped>
+.field__error { color: #d93025; font-size: 12px; }
 .modal {
   position: fixed;
   inset: 0;
