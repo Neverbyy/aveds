@@ -18,25 +18,15 @@
 
 Данные для входа в личный кабинет:
 
+##Админ
 - login: admin
 - password: admin1234
-[
-  {
-    "id": 1,
-    "login": "admin",
-    "password": "admin1234",
-    "name": "Админ"
-  },
-  {
-    "id": 2,
-    "login": "Ivan",
-    "password": "Ivan12345",
-    "name": "Иван"
-  },
-  {
-    "id": 3,
-    "login": "Sergey",
-    "password": "Sergey1234",
-    "name": "Сергей"
-  }
-]
+
+##Иван
+- login: Ivan
+- password: Ivan12345
+
+##Сергей
+- login: Sergey
+- password: Sergey1234
+
