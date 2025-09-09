@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth'
+import IconOnline from '../assets/1.png'
+import IconEmergency from '../assets/2.png'
+import IconCancer from '../assets/3.png'
 
 const { isLoggedIn, openAuthModal, logoutAndGoHome } = useAuth()
 </script>
@@ -29,21 +32,27 @@ const { isLoggedIn, openAuthModal, logoutAndGoHome } = useAuth()
       <section class="services" aria-label="Услуги">
         <div class="cards">
           <article class="card" tabindex="0" aria-label="Онлайн-прием">
-            <div class="card__icon" aria-hidden="true">❤</div>
+            <div class="card__icon" aria-hidden="true">
+              <img :src="IconOnline" alt="" />
+            </div>
             <h3 class="card__title">Онлайн-прием</h3>
             <div class="card__divider" aria-hidden="true"></div>
             <p class="card__text">Рыба текст</p>
           </article>
 
           <article class="card" tabindex="0" aria-label="Экстренный случай">
-            <div class="card__icon" aria-hidden="true">⚕</div>
+            <div class="card__icon" aria-hidden="true">
+              <img :src="IconEmergency" alt="" />
+            </div>
             <h3 class="card__title">Экстренный Случай</h3>
             <div class="card__divider" aria-hidden="true"></div>
             <p class="card__text">Рыба текст</p>
           </article>
 
           <article class="card" tabindex="0" aria-label="Лечение рака">
-            <div class="card__icon" aria-hidden="true">🧪</div>
+            <div class="card__icon" aria-hidden="true">
+              <img :src="IconCancer" alt="" />
+            </div>
             <h3 class="card__title">Лечение рака</h3>
             <div class="card__divider" aria-hidden="true"></div>
             <p class="card__text">Рыба текст</p>
@@ -55,3 +64,10 @@ const { isLoggedIn, openAuthModal, logoutAndGoHome } = useAuth()
 </template>
 
 
+<style scoped>
+.card__icon img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+</style>
