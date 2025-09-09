@@ -8,11 +8,11 @@ const { currentUser, logoutAndGoHome } = useAuth()
 
 const handleLogout = () => logoutAndGoHome(router)
 
-const userName = computed(() => currentUser.value?.name || 'Гость')
+const userName = computed(() => currentUser.value?.name)
 </script>
 
 <template>
-  <section class="hero container" aria-label="Личный кабинет">
+  <section class="hero container account" aria-label="Личный кабинет">
     <h1 class="hero__title">Привет, {{ userName }}</h1>
     <div class="hero__actions">
       <button class="btn btn--primary" type="button" @click="handleLogout">Выйти из аккаунта</button>

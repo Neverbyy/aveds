@@ -211,6 +211,14 @@ body {
   font-size: 13px; 
 }
 
+/* Account page layout */
+.account {
+  max-width: 727px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 /* Планшеты до 768px */
 @media (max-width: 768px) {
   :root {
@@ -234,7 +242,7 @@ body {
 
   .btn--primary-large,
   .btn--contacts-large { 
-    padding: 16px 28px; 
+    padding: 20px 30px; 
   }
 
   .hero { 
@@ -288,7 +296,18 @@ body {
   .card__text { 
     font-size: 13px; 
   }
-  
+  /* Account page */
+  .account .hero__title { 
+    font-size: clamp(22px, 4.2vw, 34px); 
+    margin-bottom: 16px; 
+  }
+  .account{
+    padding: 40px 40px 24px;
+  }
+
+  .account .btn {
+  }
+
 }
 
 /* Мобилки до 380px */
@@ -373,5 +392,19 @@ body {
 
   .card__text {
     font-size: 12px;
+  }
+  /* Account page */
+  .account .hero__title {
+    font-size: clamp(18px, 6.6vw, 26px);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .account{
+    padding: 18px 10px 0;
+  }
+  .account .btn {
+    padding: 20 16px; 
+    font-size: 12px; 
   }
 }
